@@ -14,6 +14,9 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
+// Routers
+const authRouter = require('./routes/auth-routes');
+
 // Error Handler
 const notFoundMiddleware = require('./middlewares/not-found');
 
@@ -34,6 +37,9 @@ app.use(cors());
 app.use(helmet());
 app.use(xss());
 app.use(morgan('dev'));
+
+// Routes
+app.use('/api/v1/auth', authRouter);
 
 // Error Handler Middlewares
 app.use(notFoundMiddleware);
