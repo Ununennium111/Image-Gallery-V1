@@ -14,10 +14,14 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
+// Error Handler
+const notFoundMiddleware = require('./middlewares/not-found');
+
 // Additional Packages
 const morgan = require('morgan');
 
 // Middlewares
+app.use(express.json());
 app.set('trust proxy', 1);
 app.use(
     rateLimiter({
@@ -30,6 +34,9 @@ app.use(cors());
 app.use(helmet());
 app.use(xss());
 app.use(morgan('dev'));
+
+// Error Handler Middlewares
+app.use(notFoundMiddleware);
 
 // Set Port
 app.set('port', process.env.port || 3000);
