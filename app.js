@@ -5,6 +5,9 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+// Connect DB
+const connectDB = require('./db/connect');
+
 // Security Packages
 const cors = require('cors');
 const helmet = require('helmet');
@@ -31,4 +34,13 @@ app.use(morgan('dev'));
 // Set Port
 app.set('port', process.env.port || 3000);
 
-app.listen(app.get('port'), () => console.log(`Server running on port ${app.get('port')}...`));
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI);
+        app.listen(app.get('port'), () => console.log(`Server running on port ${app.get('port')}...`));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+start();
