@@ -5,6 +5,19 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+// Fileupload
+const fileUpload = require('express-fileupload');
+
+// Cloundinary
+const cloudinary = require('cloudinary').v2;
+cloudinary.config(
+    {
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.CLOUD_API_KEY,
+        api_secret: process.env.CLOUD_API_SECRET
+    }
+);
+
 // Connect DB
 const connectDB = require('./db/connect');
 
@@ -29,6 +42,8 @@ const morgan = require('morgan');
 
 // Middlewares
 app.use(express.json());
+app.use(fileUpload({useTempFiles: true}));
+
 app.set('trust proxy', 1);
 app.use(
     rateLimiter({
