@@ -16,6 +16,10 @@ const rateLimiter = require('express-rate-limit');
 
 // Routers
 const authRouter = require('./routes/auth-routes');
+const imageRouter = require('./routes/image-routes');
+
+// Authenticate User
+const authMiddleware = require('./middlewares/authentication');
 
 // Error Handler
 const notFoundMiddleware = require('./middlewares/not-found');
@@ -40,6 +44,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/image', authMiddleware, imageRouter);
 
 // Error Handler Middlewares
 app.use(notFoundMiddleware);
