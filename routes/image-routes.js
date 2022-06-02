@@ -6,7 +6,11 @@ const {
     getUserImages
 } = require('../controllers/image-controllers');
 
-router.post('/', createImage);
+const { uploadImage } = require('../controllers/upload-controllers');
+
 router.get('/', getUserImages);
+router.post('/', createImage);
+
+router.post('/upload', uploadImage);
 
 module.exports = router;
