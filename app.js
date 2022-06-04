@@ -5,6 +5,9 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+//Express-async-errors
+require('express-async-errors');
+
 // Fileupload
 const fileUpload = require('express-fileupload');
 
@@ -36,6 +39,7 @@ const authMiddleware = require('./middlewares/authentication');
 
 // Error Handler
 const notFoundMiddleware = require('./middlewares/not-found');
+const errorHandlerMiddleware = require('./middlewares/error-handler');
 
 // Additional Packages
 const morgan = require('morgan');
@@ -63,6 +67,7 @@ app.use('/api/v1/image', authMiddleware, imageRouter);
 
 // Error Handler Middlewares
 app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 // Set Port
 app.set('port', process.env.port || 3000);
