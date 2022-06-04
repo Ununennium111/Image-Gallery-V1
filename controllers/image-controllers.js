@@ -15,7 +15,7 @@ const createImage = async (req, res) => {
 }
 
 const getUserImages = async (req, res) => {
-    const images = await Image.find({ upladedBy: req.userId });
+    const images = await Image.find({ uploadedBy: req.user.userId });
 
     return res
         .status(200)
