@@ -44,10 +44,12 @@ const errorHandlerMiddleware = require('./middlewares/error-handler');
 // Additional Packages
 const morgan = require('morgan');
 
+// Public
+app.use(express.static('./public'));
+
 // Middlewares
 app.use(express.json());
 app.use(fileUpload({useTempFiles: true}));
-
 app.set('trust proxy', 1);
 app.use(
     rateLimiter({
