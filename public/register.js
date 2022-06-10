@@ -32,3 +32,11 @@ formDOM.addEventListener('submit', async (e) => {
         alertDOM.innerHTML = message;
     }
 });
+
+function verifyToken(){
+    if(localStorage.getItem('AuthToken')){
+        window.location.replace('./index.html')
+    }
+}
+
+verifyToken();
